@@ -2,10 +2,10 @@
 /**
  * Popupinfo plugin
  *
- * @copyright Serge Pustovit (PSNet), 2008 - 2015
- * @author    Serge Pustovit (PSNet) <light.feel@gmail.com>
+ * @copyright Serhii Pustovit (PSNet), 2008 - 2015
+ * @author    Serhii Pustovit (PSNet) <light.feel@gmail.com>
  *
- * @link      http://psnet.lookformp3.net
+ * @link      https://github.com/psnet
  * @link      http://livestreet.ru/profile/PSNet/
  * @link      https://catalog.livestreetcms.com/profile/PSNet/
  * @link      http://livestreetguide.com/developer/PSNet/
@@ -18,9 +18,11 @@ class PluginPopupinfo_ActionPopupinfo extends ActionPlugin {
 
 	public function Init() {
 		$this->oUserCurrent = $this->User_GetUserCurrent();
+
 		if (Config::Get('plugin.popupinfo.Only_Registered_Users_Can_See_Info_Tips') and !$this->oUserCurrent) {
 			return Router::Action('error');
 		}
+
 		$this->SetDefaultEvent('getuserinfo');
 	}
 
@@ -32,7 +34,7 @@ class PluginPopupinfo_ActionPopupinfo extends ActionPlugin {
 
 
 	/**
-	 * Получить информацию о пользователе
+	 * Get user information
 	 *
 	 * @return bool
 	 */
@@ -40,10 +42,13 @@ class PluginPopupinfo_ActionPopupinfo extends ActionPlugin {
 		$this->Viewer_SetResponseAjax('json');
 
 		$sUserLogin = getRequest('param');
+
 		if (!is_string($sUserLogin) or !func_check($sUserLogin, 'login', 3, 50)) {
 			$this->Message_AddError('Error in user`s login');
+
 			return false;
 		}
+
 		if (!$oUser = $this->User_GetUserByLogin($sUserLogin)) {
 			return false;
 		}
@@ -64,7 +69,7 @@ class PluginPopupinfo_ActionPopupinfo extends ActionPlugin {
 
 
 	/**
-	 * Получить информацию о блоге
+	 * Get information about the blog
 	 *
 	 * @return bool
 	 */
@@ -72,10 +77,13 @@ class PluginPopupinfo_ActionPopupinfo extends ActionPlugin {
 		$this->Viewer_SetResponseAjax('json');
 
 		$sBlogName = getRequest('param');
+
 		if (!is_string($sBlogName) or !func_check($sBlogName, 'login', 3, 50)) {
 			$this->Message_AddError('Error in blog`s name');
+
 			return false;
 		}
+
 		if (!$oBlog = $this->Blog_GetBlogByUrl($sBlogName)) {
 			return false;
 		}

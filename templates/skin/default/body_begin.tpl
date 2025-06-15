@@ -8,6 +8,6 @@
 	});
 </script>
 <div id="Popupinfo_MoreInfoContainer">
-	<a href="http://livestreetguide.com/">LiveStreet CMS Guide by PSNet - мануал по разработке</a>
+	<a href="https://github.com/psnet">LiveStreet CMS Guide by PSNet - мануал по разработке</a>
 </div>
 <!-- /Popupinfo plugin -->

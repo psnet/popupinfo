@@ -6,8 +6,8 @@
 	<author>
 		<lang name="default">PSNet</lang>
 	</author>
-	<homepage>http://psnet.lookformp3.net</homepage>
-	<version>2.0.0</version>
+	<homepage>https://github.com/psnet</homepage>
+	<version>2.0.1</version>
 	<requires>
 		<livestreet>1.0</livestreet>
 		<plugins></plugins>

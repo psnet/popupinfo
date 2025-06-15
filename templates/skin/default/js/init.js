@@ -1,10 +1,10 @@
 /**
  * Popupinfo plugin
  *
- * @copyright Serge Pustovit (PSNet), 2008 - 2015
- * @author    Serge Pustovit (PSNet) <light.feel@gmail.com>
+ * @copyright Serhii Pustovit (PSNet), 2008 - 2015
+ * @author    Serhii Pustovit (PSNet) <light.feel@gmail.com>
  *
- * @link      http://psnet.lookformp3.net
+ * @link      https://github.com/psnet
  * @link      http://livestreet.ru/profile/PSNet/
  * @link      https://catalog.livestreetcms.com/profile/PSNet/
  * @link      http://livestreetguide.com/developer/PSNet/
@@ -12,7 +12,7 @@
 
 var ls = ls || {};
 
-ls.popupinfo = (function($) {
+ls.popupinfo = (function ($) {
 	/**
 	 * событие для передачи координат мыши в эвент отрисовки подсказки
 	 */
@@ -42,11 +42,11 @@ ls.popupinfo = (function($) {
 	 * @param Param		ид объекта
 	 * @private
 	 */
-	this._GetMoreInfo = function(URL, Param) {
+	this._GetMoreInfo = function (URL, Param) {
 		ls.ajax(
 			URL,
 			{ 'param': Param },
-			$.proxy(function(data) {
+			$.proxy(function (data) {
 				if (data.bStateError) {
 					ls.msg.error(data.sMsgTitle, data.sMsg);
 				} else {
@@ -63,7 +63,7 @@ ls.popupinfo = (function($) {
 	 * @param sText		хтмл содержимое подсказки
 	 * @private
 	 */
-	this._ShowMoreInfo = function(sText) {
+	this._ShowMoreInfo = function (sText) {
 		/**
 		 * переместить подсказку в начало координат чтобы строки не переносились и содержимое выводилось без переносов
 		 */
@@ -98,8 +98,8 @@ ls.popupinfo = (function($) {
 		/**
 		 * видимая область
 		 */
-		var iScrW = $ (window).width();
-		var iScrH = $ (window).height();
+		var iScrW = $(window).width();
+		var iScrH = $(window).height();
 		/**
 		 * если координаты мыши + размер подсказки + отступы больше чем граница экрана - отступ, то "прилепить" к краю
 		 */
@@ -122,10 +122,10 @@ ls.popupinfo = (function($) {
 	/**
 	 * Запустить таймер закрытия подсказки
 	 */
-	this.StartHidingPanel = function() {
+	this.StartHidingPanel = function () {
 		this.StopHidingPanel();
 		this._StopShowingPanel();
-		this.hideProcId = setTimeout(function() {
+		this.hideProcId = setTimeout(function () {
 			ls.popupinfo.oContainer.fadeOut(200);
 		}, this.iTimeoutDelay);
 	};
@@ -134,7 +134,7 @@ ls.popupinfo = (function($) {
 	/**
 	 * Остановить таймер закрытия подсказки
 	 */
-	this.StopHidingPanel = function() {
+	this.StopHidingPanel = function () {
 		if (this.hideProcId != null) {
 			clearTimeout(this.hideProcId);
 			this.hideProcId = null;
@@ -148,9 +148,9 @@ ls.popupinfo = (function($) {
 	 * @param URL		урл
 	 * @param Param		ид объекта
 	 */
-	this.StartShowingPanel = function(URL, Param) {
+	this.StartShowingPanel = function (URL, Param) {
 		this._StopShowingPanel();
-		this.showProcId = setTimeout($.proxy(function() {
+		this.showProcId = setTimeout($.proxy(function () {
 			this.StopHidingPanel();
 			this._GetMoreInfo(URL, Param);
 		}, this), this.iTimeoutDelay);
@@ -162,7 +162,7 @@ ls.popupinfo = (function($) {
 	 *
 	 * @private
 	 */
-	this._StopShowingPanel = function() {
+	this._StopShowingPanel = function () {
 		if (this.showProcId != null) {
 			clearTimeout(this.showProcId);
 			this.showProcId = null;
@@ -173,13 +173,13 @@ ls.popupinfo = (function($) {
 	/**
 	 * Слушатель для вывода подсказки для логинов пользователей
 	 */
-	this.AssignListenerForUsers = function(sRequestUrl, bLeaveLongLinks) {
+	this.AssignListenerForUsers = function (sRequestUrl, bLeaveLongLinks) {
 		/**
 		 * tip: на весь документ чтобы работать на обновляемом контенте
 		 */
 		$(document).on(
 			{
-				'mouseover.popupinfo': function(e) {
+				'mouseover.popupinfo': function (e) {
 					var CurLink = $(this).attr('href').replace(aRouter['profile'], '');
 					var LinkChains = CurLink.split('/');
 
@@ -188,7 +188,7 @@ ls.popupinfo = (function($) {
 					ls.popupinfo.storedEvent = e;
 					ls.popupinfo.StartShowingPanel(sRequestUrl, LinkChains[0]);
 				},
-				'mouseout.popupinfo': function() {
+				'mouseout.popupinfo': function () {
 					ls.popupinfo.StartHidingPanel();
 				}
 			},
@@ -200,12 +200,12 @@ ls.popupinfo = (function($) {
 	/**
 	 * Слушатель для вывода подсказки для блогов
 	 */
-	this.AssignListenerForBlogs = function(sRequestUrl) {
-		$ (document).on(
+	this.AssignListenerForBlogs = function (sRequestUrl) {
+		$(document).on(
 			{
-				'mouseover.popupinfo': function(e) {
-					var CurLink = $ (this).attr('href').replace(aRouter['blog'], '');
-					var LinkChains = CurLink.split ('/');
+				'mouseover.popupinfo': function (e) {
+					var CurLink = $(this).attr('href').replace(aRouter['blog'], '');
+					var LinkChains = CurLink.split('/');
 
 					/**
 					 * tip: "edit" имеет третий параметр, поэтому его включать в список не нужно
@@ -217,7 +217,7 @@ ls.popupinfo = (function($) {
 					ls.popupinfo.storedEvent = e;
 					ls.popupinfo.StartShowingPanel(sRequestUrl, LinkChains[0]);
 				},
-				'mouseout.popupinfo': function() {
+				'mouseout.popupinfo': function () {
 					ls.popupinfo.StartHidingPanel();
 				}
 			},
@@ -231,28 +231,21 @@ ls.popupinfo = (function($) {
 	 *
 	 * @param iDelay		задержка отображения
 	 */
-	this.Initialize = function(iDelay) {
+	this.Initialize = function (iDelay) {
 		this.iTimeoutDelay = iDelay;
-		this.oContainer = $ ('#Popupinfo_MoreInfoContainer');
+		this.oContainer = $('#Popupinfo_MoreInfoContainer');
 		/**
 		 * Для движений мыши по обертке
 		 */
-		this.oContainer.on('mouseover.popupinfo', function() {
+		this.oContainer.on('mouseover.popupinfo', function () {
 			ls.popupinfo.StopHidingPanel();
-		}).on('mouseout.popupinfo', function() {
+		}).on('mouseout.popupinfo', function () {
 			ls.popupinfo.StartHidingPanel();
 		});
 	};
-	
+
 	// ---
 
 	return this;
-	
+
 }).call(ls.popupinfo || {}, jQuery);
-
-// ---
-
-jQuery(document).ready(function($) {
-
-
-});

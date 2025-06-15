@@ -84,7 +84,7 @@
 
 		</div>
 		{hook run='pi_blog_info_wrapper' oBlog=$oBlog}
-		<div class="Rights"><a href="http://psnet.lookformp3.net/">Powered by PSNet</a></div>
+		<div class="Rights"><a href="https://github.com/psnet/">Powered by PSNet</a></div>
 	</div>
 	<!-- /Popupinfo plugin -->
 {/if}
